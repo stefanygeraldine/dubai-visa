@@ -1,0 +1,53 @@
+dubai-visa-landing/
+│
+├── 📄 Configuration Files
+│   ├── package.json              # Dependencies & scripts
+│   ├── tsconfig.json            # TypeScript config
+│   ├── vite.config.ts           # Vite configuration
+│   └── .gitignore               # Git ignore rules
+│
+├── 📚 Documentation
+│   ├── README.md                # Main documentation
+│   ├── COLORS.md                # Color system guide
+│   ├── ANIMATIONS.md            # GSAP animations guide
+│   ├── PROJECT_SUMMARY.md       # Project overview
+│   └── STRUCTURE.txt            # This file
+│
+├── 📁 public/                   # Static assets (served as-is)
+│   └── (favicon, etc.)
+│
+└── 📁 src/                      # Source code
+    │
+    ├── 🎨 Style Files
+    │   └── style.css            # Global styles + CSS variables
+    │
+    ├── 🖼️ Assets
+    │   ├── images/              # 👈 ADD YOUR IMAGES HERE
+    │   │   └── .gitkeep
+    │   └── (other assets)
+    │
+    ├── 🧩 Components
+    │   └── sections/            # Landing page sections
+    │       ├── HeroSection.vue        # Hero with CTAs
+    │       ├── AboutSection.vue       # About section
+    │       ├── ServicesSection.vue    # Services grid
+    │       └── ContactSection.vue     # Contact form
+    │
+    ├── 🪝 Composables
+    │   └── useSmoothScroll.ts   # Lenis smooth scroll setup
+    │
+    ├── 📱 Main Files
+    │   ├── App.vue              # Root component
+    │   └── main.ts              # Application entry point
+    │
+    └── 🔧 Config
+        └── vite-env.d.ts        # Vite types
+
+SUMMARY:
+========
+4 Sections (each 100vw × 100vh)
+4 Main Colors (Turquoise, Pink, Gold, Deep Blue)
+GSAP + Lenis Integration
+TypeScript + Vue 3
+Fully Responsive
+Production Ready ✅
