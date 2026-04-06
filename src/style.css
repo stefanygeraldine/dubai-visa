@@ -1,12 +1,12 @@
 :root {
   /* Color System - 4 Main Colors (From Design) */
-  --color-primary: #E8613D;      /* Coral/Orange-Red */
+  --color-primary: #dd5539;      /* Coral/Orange-Red */
   --color-secondary: #0A2E4E;    /* Deep Navy Blue */
   --color-accent: #7DCDDE;       /* Sky Blue */
   --color-neutral: #F59B4C;      /* Warm Orange */
 
   /* Shades & Tints */
-  --color-primary-dark: #D14828;
+  --color-primary-dark: #dd5539;
   --color-primary-light: #F08A6A;
   --color-secondary-dark: #061B2E;
   --color-secondary-light: #164267;

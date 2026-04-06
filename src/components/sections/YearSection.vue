@@ -1,5 +1,14 @@
 <template>
   <section class="year-section" ref="sectionRef">
+    <!-- Red bottom strip -->
+    <div class="red-strip">
+      <!-- Right illustration: 2 red buildings -->
+      <div class="right-illustration">
+        <img :src="buildingRedSvg" alt="" class="building-large" />
+        <img :src="buildingRed2Svg" alt="" class="building-small" />
+      </div>
+    </div>
+
     <!-- Stars background -->
     <div class="stars">
       <img :src="starSvg" class="star" style="left:19%;top:49%" alt="" />
@@ -18,10 +27,9 @@
       <span class="dot" style="left:74%;top:46%"></span>
     </div>
 
-    <!-- Left illustration: camel with frame -->
+    <!-- Left illustration: rueda -->
     <div class="left-illustration">
-      <img :src="camelloSvg" alt="Camel" class="camel-img" />
-      <img :src="frameSvg" alt="" class="frame-img" />
+      <img :src="ruedaSvg" alt="" class="rueda-img" />
     </div>
 
     <!-- Center text -->
@@ -33,11 +41,6 @@
       </p>
     </div>
 
-    <!-- Right illustration: building icons -->
-    <div class="right-illustration">
-      <img :src="buildingRedSvg" alt="" class="building-large" />
-      <img :src="buildingOrangeSvg" alt="" class="building-small" />
-    </div>
   </section>
 </template>
 
@@ -45,10 +48,9 @@
 import { ref, onMounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import camelloSvg from '@/assets/camello.svg'
-import frameSvg from '@/assets/frame.svg'
+import ruedaSvg from '@/assets/rueda.svg'
 import buildingRedSvg from '@/assets/building-red.svg'
-import buildingOrangeSvg from '@/assets/building-orange.svg'
+import buildingRed2Svg from '@/assets/building-red-2.svg'
 import starSvg from '@/assets/Star 4.svg'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -80,19 +82,13 @@ onMounted(() => {
 <style scoped>
 .year-section {
   width: 100%;
-  min-height: 52vh;
+  height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(
-    to bottom,
-    var(--color-secondary) 0%,
-    var(--color-secondary) 70%,
-    var(--color-primary) 70%,
-    var(--color-primary) 100%
-  );
+  background: var(--color-secondary);
   padding: 4rem 2rem;
 }
 
@@ -101,6 +97,7 @@ onMounted(() => {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  height: 40%;
 }
 
 .star {
@@ -154,28 +151,28 @@ onMounted(() => {
   width: 20%;
   max-width: 260px;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.camel-img {
+.rueda-img {
   width: 100%;
   height: auto;
 }
 
-.frame-img {
-  width: 75%;
-  height: auto;
-  margin-top: -10px;
+/* Red bottom strip */
+.red-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: var(--color-primary);
 }
 
 /* Right illustration */
 .right-illustration {
   position: absolute;
   right: 2%;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 100%;
   display: flex;
   align-items: flex-end;
   gap: 0.5rem;
@@ -190,7 +187,6 @@ onMounted(() => {
 .building-small {
   height: 130px;
   width: auto;
-  align-self: flex-end;
 }
 
 @media (max-width: 768px) {

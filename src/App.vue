@@ -12,8 +12,8 @@ useSmoothScroll()
 <template>
   <div class="app">
     <HeroSection />
-    <YearSection />
     <PinnedSections />
+    <YearSection />
     <ContactSection />
   </div>
 </template>
