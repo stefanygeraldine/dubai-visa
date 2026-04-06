@@ -15,6 +15,7 @@
       </div>
       <div class="hero-right">
         <div class="corner-circle"></div>
+        <div class="sun"></div>
         <div class="hero-illustration">
           <div class="sky-background">
             <div class="blue-circle"></div>
@@ -23,7 +24,6 @@
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-3" />
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-4" />
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-5" />
-            <div class="sun"></div>
             <svg ref="burjRef" width="158" height="554" viewBox="0 0 158 554" fill="none" xmlns="http://www.w3.org/2000/svg" class="burj-khalifa" style="overflow: visible">
               <g clip-path="url(#clip0_23_14)">
                 <g class="bk-tier">
@@ -314,15 +314,15 @@ onMounted(() => {
   height: 116px;
   background: var(--color-neutral);
   border-radius: 50%;
-  box-shadow: 0 0 40px rgba(245, 155, 76, 0.5);
-  z-index: 1;
+  box-shadow: 0 0 40px var(--color-neutral);
+  z-index: 0;
 }
 
 .burj-khalifa {
   position: absolute;
   bottom: 0;
   right: 15%;
-  height: 80vh;
+  height: 90vh;
   width: auto;
   filter: drop-shadow(0 10px 30px rgba(10, 46, 78, 0.4));
   z-index: 2;

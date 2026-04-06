@@ -1,20 +1,22 @@
 <template>
-  <section class="section contact-section" ref="sectionRef">
-    <div class="contact-content-full">
-      <h2 class="contact-title fade-in">A Year of Living (and Working) Beyond Limits.</h2>
-      <p class="contact-text fade-in">
-        Your Remote Work Visa is the key to a frictionless life. Swipe through to see how your
-        daily routine transforms when the world's most ambitious city becomes your backyard.
-      </p>
-      <div class="contact-illustration fade-in">
-        <div class="desert-scene">
-          <div class="ferris-wheel"></div>
-          <div class="buildings"></div>
-          <div class="camel"></div>
-          <div class="dunes"></div>
-        </div>
+  <section class="contact-section" ref="sectionRef">
+
+    <!-- Left panel: orange with coral card + form -->
+    <div class="contact-left">
+      <div class="contact-card fade-in">
+        <h2 class="contact-title">Contact Us</h2>
+        <input class="contact-input" type="text"  placeholder="Name" />
+        <input class="contact-input" type="email" placeholder="Email" />
+        <textarea class="contact-textarea"         placeholder="Message"></textarea>
+        <button class="btn btn-hero contact-btn">SEND</button>
       </div>
     </div>
+
+    <!-- Right panel: light with building -->
+    <div class="contact-right">
+      <img :src="alaraSvg" alt="" class="contact-building fade-in" />
+    </div>
+
   </section>
 </template>
 
@@ -22,202 +24,109 @@
 import { ref, onMounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import alaraSvg from '@/assets/alara.svg'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const sectionRef = ref<HTMLElement | null>(null)
 
-// Component logic here
-
 onMounted(() => {
   if (!sectionRef.value) return
+  const st = { trigger: sectionRef.value, start: 'top 80%', toggleActions: 'play none none reverse' }
 
-  const fadeInElements = sectionRef.value.querySelectorAll('.fade-in')
-
-  fadeInElements.forEach((element, index) => {
-    gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-        x: index % 2 === 0 ? -100 : 100,
-        rotationY: index % 2 === 0 ? -15 : 15
-      },
-      {
-        opacity: 1,
-        x: 0,
-        rotationY: 0,
-        duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    )
-  })
+  gsap.fromTo('.contact-building',
+    { opacity: 0, y: 40 },
+    { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', scrollTrigger: st }
+  )
+  gsap.fromTo('.fade-in',
+    { opacity: 0, y: 30 },
+    { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: 'power3.out', scrollTrigger: st }
+  )
 })
 </script>
 
 <style scoped>
 .contact-section {
-  background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-secondary) 50%, var(--color-neutral) 50%, var(--color-primary) 100%);
-  color: white;
-  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
   overflow: hidden;
 }
 
-.contact-content-full {
-  max-width: 900px;
-  text-align: center;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-  position: relative;
-  z-index: 2;
+/* Left: orange */
+.contact-left {
+  width: 52%;
+  background: var(--color-neutral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+}
+
+.contact-card {
+  background: var(--color-primary);
+  border-radius: 8px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .contact-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  margin-bottom: 2rem;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
   color: white;
+  margin: 0 0 0.5rem;
 }
 
-.contact-text {
-  font-size: clamp(1rem, 2vw, 1.35rem);
-  line-height: 1.8;
-  margin-bottom: 3rem;
-  opacity: 0.95;
-  color: white;
-}
-
-.contact-illustration {
+.contact-input,
+.contact-textarea {
   width: 100%;
-  min-height: 400px;
-  position: relative;
+  background: #d9d9d9;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  outline: none;
+  box-sizing: border-box;
 }
 
-.desert-scene {
-  width: 100%;
-  height: 400px;
-  position: relative;
-}
+.contact-input { height: 40px; }
 
-.ferris-wheel {
-  position: absolute;
-  left: 15%;
-  bottom: 30%;
-  width: 100px;
+.contact-textarea {
   height: 100px;
-  border: 8px solid white;
-  border-radius: 50%;
+  resize: none;
 }
 
-.ferris-wheel::before,
-.ferris-wheel::after {
-  content: '';
-  position: absolute;
-  background: white;
-}
+.contact-input::placeholder,
+.contact-textarea::placeholder { color: #888; }
 
-.ferris-wheel::before {
-  width: 2px;
-  height: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-}
+.contact-btn { align-self: flex-start; }
 
-.ferris-wheel::after {
-  width: 100%;
-  height: 2px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.buildings {
-  position: absolute;
-  right: 10%;
-  bottom: 30%;
-  width: 120px;
-  height: 150px;
-  background: var(--color-primary);
+/* Right: white/light with building */
+.contact-right {
+  width: 48%;
+  background: #ffffff;
+  position: relative;
   display: flex;
-  gap: 10px;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.buildings::before,
-.buildings::after {
-  content: '';
-  background: var(--color-primary);
-}
-
-.buildings::before {
-  width: 35px;
-  height: 100px;
-  align-self: flex-end;
-}
-
-.buildings::after {
-  width: 40px;
-  height: 120px;
-  align-self: flex-end;
-}
-
-.camel {
-  position: absolute;
-  left: 50%;
-  bottom: 15%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 60px;
-  background: var(--color-neutral-dark);
-  border-radius: 40% 40% 20% 20%;
-}
-
-.camel::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: 10px;
-  width: 30px;
-  height: 30px;
-  background: var(--color-neutral-dark);
-  border-radius: 50% 50% 0 0;
-}
-
-.dunes {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background:
-    radial-gradient(ellipse at 30% 100%, var(--color-neutral-dark) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 100%, var(--color-primary) 0%, transparent 50%);
+.contact-building {
+  height: 90%;
+  width: auto;
 }
 
 @media (max-width: 768px) {
-  .contact-content-full {
-    padding: 3rem 1.5rem;
-  }
-
-  .desert-scene {
-    height: 300px;
-  }
-
-  .ferris-wheel {
-    width: 70px;
-    height: 70px;
-  }
-
-  .buildings {
-    width: 80px;
-    height: 100px;
-  }
-
-  .camel {
-    width: 60px;
-    height: 45px;
-  }
+  .contact-section { flex-direction: column; height: auto; }
+  .contact-left, .contact-right { width: 100%; }
+  .contact-right { min-height: 40vh; }
 }
 </style>

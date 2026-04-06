@@ -9,9 +9,6 @@
           tax-free, high-speed lifestyle. Live in the city of the future for a full year while
           keeping your global job. No local sponsor, no bureaucracy—just you and the skyline.
         </p>
-        <div class="slide-cta" ref="cta1Ref">
-          <button class="btn btn-primary">DISCOVER</button>
-        </div>
       </div>
 
       <!-- Sección 3 - Services -->
@@ -24,7 +21,7 @@
           </div>
         </div>
         <div class="slide-cta" ref="cta2Ref">
-          <button class="btn btn-primary-alt">START JOURNEY</button>
+          <button class="btn btn-primary-alt" @click="scrollToSlider">Start Journey</button>
         </div>
       </div>
     </div>
@@ -44,7 +41,6 @@ const slide1Ref = ref<HTMLElement | null>(null)
 const slide2Ref = ref<HTMLElement | null>(null)
 const title1Ref = ref<HTMLElement | null>(null)
 const text1Ref = ref<HTMLElement | null>(null)
-const cta1Ref = ref<HTMLElement | null>(null)
 const title2Ref = ref<HTMLElement | null>(null)
 const list2Ref = ref<HTMLElement | null>(null)
 const cta2Ref = ref<HTMLElement | null>(null)
@@ -56,6 +52,10 @@ const services = [
 ]
 
 let ctx: gsap.Context
+
+const scrollToSlider = () => {
+  document.getElementById('slider')?.scrollIntoView({ behavior: 'smooth' })
+}
 
 // Helper function para dividir texto en palabras
 const splitTextIntoWords = (element: HTMLElement) => {
@@ -133,16 +133,6 @@ onMounted(() => {
       '<0.2'
     )
 
-    tl.fromTo(cta1Ref.value,
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5
-      },
-      '<0.3'
-    )
-
     // Espacio para leer el contenido (aumentado)
     tl.to({}, { duration: 1 }) // Aumentado de 0.3 a 1
 
@@ -162,12 +152,6 @@ onMounted(() => {
       stagger: 0.03, // Aumentado de 0.01 a 0.03
       ease: 'power2.in'
     }, '<0.2')
-
-    tl.to(cta1Ref.value, {
-      opacity: 0,
-      y: -20,
-      duration: 0.4
-    }, '<0.3')
 
     // Cambio de background (más lento)
     tl.to(pinnedRef.value, {
