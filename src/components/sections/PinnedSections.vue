@@ -3,6 +3,15 @@
     <div class="pinned-content" ref="pinnedRef">
       <!-- Sección 2 - About -->
       <div class="content-slide" ref="slide1Ref">
+        <!-- Background buildings silhouette -->
+        <div class="bg-buildings">
+          <img :src="buildingRedSvg"  alt="" class="bg-b" style="left:3%;   bottom:0;  height:39%" />
+          <img :src="buildingRed2Svg" alt="" class="bg-b" style="left:14.4%;bottom:0;  height:33%" />
+          <img :src="buildingRedSvg"  alt="" class="bg-b" style="left:25.6%;bottom:0;  height:39%" />
+          <img :src="buildingRed2Svg" alt="" class="bg-b" style="left:63.4%;bottom:0;  height:39%" />
+          <img :src="buildingRedSvg"  alt="" class="bg-b" style="left:76.8%;bottom:1.6%;height:34%" />
+          <img :src="buildingRed2Svg" alt="" class="bg-b" style="left:85.7%;bottom:0;  height:55%" />
+        </div>
         <h2 class="slide-title" ref="title1Ref">Your Office. No Strings Attached.</h2>
         <p class="slide-text" ref="text1Ref">
           The Dubai Remote Work Visa is more than a document; it's your all-access pass to a
@@ -32,6 +41,8 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import buildingRedSvg from '@/assets/building-red.svg'
+import buildingRed2Svg from '@/assets/building-red-2.svg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -327,5 +338,19 @@ onUnmounted(() => {
   .service-item {
     gap: 1rem;
   }
+}
+/* Background buildings */
+.bg-buildings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-b {
+  position: absolute;
+  width: auto;
+  filter: brightness(0.5) saturate(0.2);
+  opacity: 0.6;
 }
 </style>

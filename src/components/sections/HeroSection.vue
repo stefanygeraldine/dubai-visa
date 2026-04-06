@@ -2,6 +2,7 @@
   <section class="section hero-section" ref="sectionRef">
     <div class="hero-split">
       <div class="hero-left">
+        <img :src="corazon2Svg" alt="Heart" class="heart-icon-2" />
         <div class="hero-content">
           <h1 class="hero-title fade-in">Work From the Future</h1>
           <p class="hero-subtitle fade-in">
@@ -9,7 +10,7 @@
             world's most iconic skyline
           </p>
           <div class="hero-cta fade-in">
-            <button class="btn btn-hero">START JOURNEY</button>
+            <button class="btn btn-hero">Start Journey</button>
           </div>
         </div>
       </div>
@@ -24,6 +25,7 @@
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-3" />
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-4" />
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-5" />
+            <img :src="frame" alt="Heart" class="frame" />
             <svg ref="burjRef" width="158" height="554" viewBox="0 0 158 554" fill="none" xmlns="http://www.w3.org/2000/svg" class="burj-khalifa" style="overflow: visible">
               <g clip-path="url(#clip0_23_14)">
                 <g class="bk-tier">
@@ -85,6 +87,8 @@ import { ref, onMounted } from 'vue'
 import { gsap } from 'gsap'
 import nubeSvg from '@/assets/images/nube.svg'
 import corazonSvg from '@/assets/images/corazon.svg'
+import corazon2Svg from '@/assets/images/corazon2.svg'
+import frame from '@/assets/images/frame.svg'
 
 const sectionRef = ref<HTMLElement | null>(null)
 const burjRef = ref<SVGElement | null>(null)
@@ -202,7 +206,7 @@ onMounted(() => {
 
 .hero-subtitle {
   font-family: 'Nunito', sans-serif;
-  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  font-size: clamp(1rem, 1.8vw, 1rem);
   line-height: 1.6;
   margin-bottom: 2.5rem;
   opacity: 0.95;
@@ -219,8 +223,8 @@ onMounted(() => {
   border: none;
   border-radius: 5px;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   background: var(--color-secondary);
   color: white;
@@ -327,15 +331,31 @@ onMounted(() => {
   filter: drop-shadow(0 10px 30px rgba(10, 46, 78, 0.4));
   z-index: 2;
 }
+.heart-icon-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: 100vh;
+  //animation: heartbeat 2s ease-in-out infinite;
+}
+.frame{
+  position: absolute;
+  left: -100px;
+  bottom: 0;
+  width: auto;
+  height: 50vh;
+
+}
 
 .heart-icon {
   position: absolute;
   bottom: 3px;
   right: 12%;
   width: auto;
-  height: 10vh;
+  height: 15vh;
   z-index: 3;
-  animation: heartbeat 2s ease-in-out infinite;
+
 }
 
 @keyframes heartbeat {
