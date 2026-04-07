@@ -8,7 +8,7 @@
         keeping your global job. No local sponsor, no bureaucracy—just you and the skyline.
       </p>
       <div class="about-cta fade-in">
-        <button class="btn btn-primary">DISCOVER</button>
+        <Btn3D>DISCOVER</Btn3D>
       </div>
     </div>
   </section>
@@ -18,6 +18,7 @@
 import { ref, onMounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Btn3D from '@/components/Btn3D.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 

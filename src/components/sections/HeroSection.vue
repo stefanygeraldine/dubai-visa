@@ -10,7 +10,7 @@
             world's most iconic skyline
           </p>
           <div class="hero-cta fade-in">
-            <button class="btn btn-hero">Start Journey</button>
+            <Btn3D>Start Journey</Btn3D>
           </div>
         </div>
       </div>
@@ -25,7 +25,9 @@
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-3" />
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-4" />
             <img :src="nubeSvg" alt="Cloud" class="cloud cloud-5" />
-            <img :src="frame" alt="Heart" class="frame" />
+
+            <div class="burj-wrapper">
+              <img :src="corazonSvg" alt="frame" class="heart-icon" />
             <svg ref="burjRef" width="158" height="554" viewBox="0 0 158 554" fill="none" xmlns="http://www.w3.org/2000/svg" class="burj-khalifa" style="overflow: visible">
               <g clip-path="url(#clip0_23_14)">
                 <g class="bk-tier">
@@ -74,7 +76,9 @@
                 </clipPath>
               </defs>
             </svg>
-            <img :src="corazonSvg" alt="Heart" class="heart-icon" />
+
+              <img :src="frame" alt="Heart" class="frame" />
+            </div>
           </div>
         </div>
       </div>
@@ -85,6 +89,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { gsap } from 'gsap'
+import Btn3D from '@/components/Btn3D.vue'
 import nubeSvg from '@/assets/images/nube.svg'
 import corazonSvg from '@/assets/images/corazon.svg'
 import corazon2Svg from '@/assets/images/corazon2.svg'
@@ -188,7 +193,6 @@ onMounted(() => {
 }
 
 .hero-content {
-  max-width: 500px;
   color: white;
   position: relative;
   z-index: 2;
@@ -197,7 +201,7 @@ onMounted(() => {
 
 .hero-title {
   font-family: 'Nunito Sans', sans-serif;
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-size: 8vw;
   font-weight: 700;
   margin-bottom: 1.5rem;
   line-height: 1.2;
@@ -205,8 +209,8 @@ onMounted(() => {
 }
 
 .hero-subtitle {
-  font-family: 'Nunito', sans-serif;
-  font-size: clamp(1rem, 1.8vw, 1rem);
+  font-family: var(--font-orbit);
+  font-size: 1.5vw;
   line-height: 1.6;
   margin-bottom: 2.5rem;
   opacity: 0.95;
@@ -219,23 +223,34 @@ onMounted(() => {
 }
 
 .btn-hero {
+  position: relative;
   padding: 0.875rem 2.5rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  background: var(--color-secondary);
+  background: var(--color-neutral);
   color: white;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 1px;
-  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow:
+    1px -1px 0 0 white,
+    2px -2px 0 0 white,
+    3px -3px 0 0 white,
+    4px -4px 0 0 white,
+    5px -5px 0 0 white,
+    6px -6px 0 0 white;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .btn-hero:hover {
-  background: var(--color-secondary-light);
-  transform: translateY(-2px);
+  transform: translate(3px, -3px);
+  box-shadow:
+    1px -1px 0 0 white,
+    2px -2px 0 0 white,
+    3px -3px 0 0 white;
 }
 
 .sky-background {
@@ -246,7 +261,7 @@ onMounted(() => {
 
 .cloud {
   position: absolute;
-  width: 120px;
+  width: 240px;
   height: auto;
   opacity: 0.95;
   filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
@@ -254,22 +269,22 @@ onMounted(() => {
 
 .cloud-1 {
   top: 15%;
-  left: -140px;
+  left: -240px;
   animation: drift 18s linear infinite;
 }
 
 .cloud-2 {
   top: 28%;
-  left: -110px;
-  width: 100px;
+  left: -200px;
+  width: 200px;
   animation: drift 26s linear infinite;
   animation-delay: -10s;
 }
 
 .cloud-3 {
   top: 8%;
-  left: -120px;
-  width: 90px;
+  left: -220px;
+  width: 180px;
   opacity: 0.7;
   animation: drift 22s linear infinite;
   animation-delay: -5s;
@@ -277,8 +292,8 @@ onMounted(() => {
 
 .cloud-4 {
   top: 42%;
-  left: -150px;
-  width: 130px;
+  left: -260px;
+  width: 260px;
   opacity: 0.6;
   animation: drift 30s linear infinite;
   animation-delay: -18s;
@@ -286,8 +301,8 @@ onMounted(() => {
 
 .cloud-5 {
   top: 20%;
-  left: -100px;
-  width: 80px;
+  left: -180px;
+  width: 180px;
   opacity: 0.5;
   animation: drift 20s linear infinite;
   animation-delay: -14s;
@@ -322,40 +337,46 @@ onMounted(() => {
   z-index: 0;
 }
 
-.burj-khalifa {
+.burj-wrapper {
   position: absolute;
   bottom: 0;
   right: 15%;
   height: 90vh;
-  width: auto;
-  filter: drop-shadow(0 10px 30px rgba(10, 46, 78, 0.4));
+  display: flex;
+  align-items: flex-end;
   z-index: 2;
 }
+
+.burj-khalifa {
+  height: 90vh;
+  width: auto;
+  filter: drop-shadow(0 10px 30px rgba(10, 46, 78, 0.4));
+  display: block;
+}
+
+.heart-icon {
+  position: absolute;
+  height: 22vh;
+  width: auto;
+  margin-bottom: 3px;
+  z-index: 3;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+.frame{
+  position: absolute;
+  bottom: 0;
+  width: auto;
+  height: 50vh;
+  margin-left: 50%;
+  z-index: -1;
+}
+
 .heart-icon-2 {
   position: absolute;
   top: 0;
   left: 0;
   width: auto;
   height: 100vh;
-  //animation: heartbeat 2s ease-in-out infinite;
-}
-.frame{
-  position: absolute;
-  left: -100px;
-  bottom: 0;
-  width: auto;
-  height: 50vh;
-
-}
-
-.heart-icon {
-  position: absolute;
-  bottom: 3px;
-  right: 12%;
-  width: auto;
-  height: 15vh;
-  z-index: 3;
-
 }
 
 @keyframes heartbeat {
@@ -363,7 +384,7 @@ onMounted(() => {
     transform: translateX(-50%) scale(1);
   }
   50% {
-    transform: translateX(-50%) scale(1.1);
+    transform: translateX(-50%) scale(1.02);
   }
 }
 

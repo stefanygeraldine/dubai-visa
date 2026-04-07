@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="services-cta fade-in">
-        <button class="btn btn-primary-alt">START JOURNEY</button>
+        <Btn3D>START JOURNEY</Btn3D>
       </div>
     </div>
   </section>
@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { gsap } from 'gsap'
+import Btn3D from '@/components/Btn3D.vue'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)

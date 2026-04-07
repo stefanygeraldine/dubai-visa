@@ -8,7 +8,7 @@
         <input class="contact-input" type="text"  placeholder="Name" />
         <input class="contact-input" type="email" placeholder="Email" />
         <textarea class="contact-textarea"         placeholder="Message"></textarea>
-        <button class="btn btn-hero contact-btn">SEND</button>
+        <Btn3D style="align-self: flex-start">SEND</Btn3D>
       </div>
     </div>
 
@@ -24,6 +24,7 @@
 import { ref, onMounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Btn3D from '@/components/Btn3D.vue'
 import alaraSvg from '@/assets/alara.svg'
 
 gsap.registerPlugin(ScrollTrigger)

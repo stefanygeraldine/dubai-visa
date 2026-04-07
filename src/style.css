@@ -3,7 +3,7 @@
   --color-primary: #dd5539;      /* Coral/Orange-Red */
   --color-secondary: #0A2E4E;    /* Deep Navy Blue */
   --color-accent: #7DCDDE;       /* Sky Blue */
-  --color-neutral: #F59B4C;      /* Warm Orange */
+  --color-neutral: #f19451;      /* Warm Orange */
 
   /* Shades & Tints */
   --color-primary-dark: #dd5539;
@@ -29,6 +29,7 @@
   /* Typography */
   --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
   --font-heading: 'Poppins', var(--font-primary);
+  --font-orbit: 'Orbit', sans-serif;
 
   /* Transitions */
   --transition-fast: 0.2s ease;
@@ -53,6 +54,10 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+p {
+  font-family: var(--font-orbit);
 }
 
 body {

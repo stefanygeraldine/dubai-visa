@@ -23,14 +23,22 @@
       <!-- Sección 3 - Services -->
       <div class="content-slide" ref="slide2Ref">
         <h2 class="slide-title" ref="title2Ref">Three Steps to Your New View.</h2>
-        <div class="services-list" ref="list2Ref">
-          <div class="service-item" v-for="(service, index) in services" :key="index">
-            <span class="service-number">{{ index + 1 }}</span>
-            <p class="service-text">{{ service.text }}</p>
+        <div class="stepper" ref="list2Ref">
+          <div class="stepper-item" v-for="(service, index) in services" :key="index">
+            <div class="stepper-left">
+              <div class="stepper-circle">
+                <span class="stepper-number">{{ index + 1 }}</span>
+              </div>
+              <div class="stepper-line" v-if="index < services.length - 1"></div>
+            </div>
+            <div class="stepper-body">
+              <p class="stepper-label">Step {{ index + 1 }}</p>
+              <p class="stepper-text">{{ service.text }}</p>
+            </div>
           </div>
         </div>
         <div class="slide-cta" ref="cta2Ref">
-          <button class="btn btn-primary-alt" @click="scrollToSlider">Start Journey</button>
+          <Btn3D @click="scrollToSlider">Start Journey</Btn3D>
         </div>
       </div>
     </div>
@@ -39,6 +47,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import Btn3D from '@/components/Btn3D.vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import buildingRedSvg from '@/assets/building-red.svg'
@@ -90,19 +99,24 @@ onMounted(() => {
     const text1Words = splitTextIntoWords(text1Ref.value!)
     const title2Words = splitTextIntoWords(title2Ref.value!)
 
-    // También dividir las service-text en palabras
-    const serviceTexts = list2Ref.value!.querySelectorAll('.service-text')
+    // Dividir stepper-text en palabras
+    const serviceTexts = list2Ref.value!.querySelectorAll('.stepper-text')
     const serviceWords: Element[] = []
     serviceTexts.forEach(text => {
       const words = splitTextIntoWords(text as HTMLElement)
       serviceWords.push(...Array.from(words))
     })
 
-    const serviceNumbers = list2Ref.value!.querySelectorAll('.service-number')
+    const serviceNumbers = list2Ref.value!.querySelectorAll('.stepper-circle')
 
-    // Set inicial: palabras del slide 2 invisibles
+    const stepperLines = list2Ref.value!.querySelectorAll('.stepper-line')
+    const stepperLabels = list2Ref.value!.querySelectorAll('.stepper-label')
+
+    // Set inicial: elementos del slide 2 invisibles
     gsap.set(title2Words, { opacity: 0, y: 40 })
-    gsap.set(serviceNumbers, { opacity: 0, y: 30 })
+    gsap.set(serviceNumbers, { opacity: 0, scale: 0.5 })
+    gsap.set(stepperLines, { opacity: 0, scaleY: 0, transformOrigin: 'top center' })
+    gsap.set(stepperLabels, { opacity: 0, y: 10 })
     gsap.set(serviceWords, { opacity: 0, y: 30 })
     gsap.set(cta2Ref.value, { opacity: 0, y: 30 })
 
@@ -179,21 +193,26 @@ onMounted(() => {
       ease: 'power2.out'
     }, '-=0.3')
 
-    tl.to(serviceNumbers, {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.15,
-      ease: 'power2.out'
-    }, '<0.1')
+    // Animar cada step por separado con pausa entre ellos
+    const stepPause = 0.6
+    const circles = Array.from(serviceNumbers)
+    const lines = Array.from(stepperLines)
+    const labels = Array.from(stepperLabels)
+    const allStepTexts = list2Ref.value!.querySelectorAll('.stepper-text')
 
-    tl.to(serviceWords, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.04,
-      ease: 'power2.out'
-    }, '<0.1')
+    circles.forEach((circle, i) => {
+      // Círculo
+      tl.to(circle, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }, i === 0 ? '<0.1' : `+=${stepPause}`)
+      // Label
+      tl.to(labels[i], { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }, '<0.1')
+      // Palabras del texto del step
+      const words = Array.from((allStepTexts[i] as HTMLElement).querySelectorAll('.word-inner'))
+      tl.to(words, { opacity: 1, y: 0, duration: 0.4, stagger: 0.03, ease: 'power2.out' }, '<0.1')
+      // Línea hacia el siguiente (si existe)
+      if (lines[i]) {
+        tl.to(lines[i], { opacity: 1, scaleY: 1, duration: 0.4, ease: 'power2.out' }, '<0.2')
+      }
+    })
 
     tl.to(cta2Ref.value, {
       opacity: 1,
@@ -274,29 +293,71 @@ onUnmounted(() => {
   will-change: transform, opacity;
 }
 
-.services-list {
-  text-align: left;
+.stepper {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 3rem;
-  max-width: 900px;
+  max-width: 560px;
   width: 100%;
+  text-align: left;
 }
 
-.service-item {
+.stepper-item {
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
   align-items: flex-start;
 }
 
-.service-number {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: white;
+.stepper-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   flex-shrink: 0;
 }
 
-.service-text {
-  font-size: clamp(1rem, 2vw, 1.35rem);
+.stepper-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepper-number {
+  font-family: var(--font-orbit);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+}
+
+.stepper-line {
+  width: 2px;
+  flex: 1;
+  min-height: 2rem;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.05));
+  margin: 6px 0;
+}
+
+.stepper-body {
+  padding-bottom: 2.5rem;
+}
+
+.stepper-label {
+  font-family: var(--font-orbit);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.4rem;
+}
+
+.stepper-text {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
   line-height: 1.6;
   color: white;
   opacity: 0.95;
@@ -350,7 +411,8 @@ onUnmounted(() => {
 .bg-b {
   position: absolute;
   width: auto;
-  filter: brightness(0.5) saturate(0.2);
-  opacity: 0.6;
+  /* Recolor to a navy slightly lighter than #003f62 background → watermark effect */
+  filter: brightness(0) saturate(100%) invert(18%) sepia(60%) saturate(400%) hue-rotate(185deg) brightness(90%);
+  opacity: 0.5;
 }
 </style>

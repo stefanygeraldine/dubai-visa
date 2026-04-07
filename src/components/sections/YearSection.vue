@@ -154,8 +154,8 @@ onMounted(() => {
 }
 
 .rueda-img {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 50vh;
 }
 
 /* Red bottom strip */
