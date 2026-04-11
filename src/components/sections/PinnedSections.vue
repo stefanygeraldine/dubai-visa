@@ -5,12 +5,12 @@
       <div class="content-slide" ref="slide1Ref">
         <!-- Background buildings silhouette -->
         <div class="bg-buildings">
-          <img :src="buildingRedSvg"  alt="" class="bg-b" style="left:3%;   bottom:0;  height:39%" />
-          <img :src="buildingRed2Svg" alt="" class="bg-b" style="left:14.4%;bottom:0;  height:33%" />
-          <img :src="buildingRedSvg"  alt="" class="bg-b" style="left:25.6%;bottom:0;  height:39%" />
-          <img :src="buildingRed2Svg" alt="" class="bg-b" style="left:63.4%;bottom:0;  height:39%" />
-          <img :src="buildingRedSvg"  alt="" class="bg-b" style="left:76.8%;bottom:1.6%;height:34%" />
-          <img :src="buildingRed2Svg" alt="" class="bg-b" style="left:85.7%;bottom:0;  height:55%" />
+          <img :src="blueDarkBuildingSvg" alt="" class="bg-b" style="left:3%;   bottom:0;  height:39%" />
+          <img :src="blueDarkBuildingSvg" alt="" class="bg-b" style="left:14.4%;bottom:0;  height:33%" />
+          <img :src="blueDarkBuildingSvg" alt="" class="bg-b" style="left:25.6%;bottom:0;  height:39%" />
+          <img :src="blueDarkBuildingSvg" alt="" class="bg-b" style="left:63.4%;bottom:0;  height:39%" />
+          <img :src="blueDarkBuildingSvg" alt="" class="bg-b" style="left:76.8%;bottom:0;height:34%" />
+          <img :src="blueDarkBuildingSvg" alt="" class="bg-b" style="left:85.7%;bottom:0;  height:55%" />
         </div>
         <h2 class="slide-title" ref="title1Ref">Your Office. No Strings Attached.</h2>
         <p class="slide-text" ref="text1Ref">
@@ -22,6 +22,14 @@
 
       <!-- Sección 3 - Services -->
       <div class="content-slide" ref="slide2Ref">
+        <div class="bg-buildings" ref="bgBuildings2Ref">
+          <img :src="redBuildingSvg" alt="" class="bg-b" style="left:3%;   bottom:0;  height:39%" />
+          <img :src="redBuildingSvg" alt="" class="bg-b" style="left:14.4%;bottom:0;  height:33%" />
+          <img :src="redBuildingSvg" alt="" class="bg-b" style="left:25.6%;bottom:0;  height:39%" />
+          <img :src="redBuildingSvg" alt="" class="bg-b" style="left:63.4%;bottom:0;  height:39%" />
+          <img :src="redBuildingSvg" alt="" class="bg-b" style="left:76.8%;bottom:0;height:34%" />
+          <img :src="redBuildingSvg" alt="" class="bg-b" style="left:85.7%;bottom:0;  height:55%" />
+        </div>
         <h2 class="slide-title" ref="title2Ref">Three Steps to Your New View.</h2>
         <div class="stepper" ref="list2Ref">
           <div class="stepper-item" v-for="(service, index) in services" :key="index">
@@ -52,6 +60,8 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import buildingRedSvg from '@/assets/building-red.svg'
 import buildingRed2Svg from '@/assets/building-red-2.svg'
+import blueDarkBuildingSvg from '@/assets/blue-dark-building.svg'
+import redBuildingSvg from '@/assets/red-building.svg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -64,6 +74,7 @@ const text1Ref = ref<HTMLElement | null>(null)
 const title2Ref = ref<HTMLElement | null>(null)
 const list2Ref = ref<HTMLElement | null>(null)
 const cta2Ref = ref<HTMLElement | null>(null)
+const bgBuildings2Ref = ref<HTMLElement | null>(null)
 
 const services = [
   { text: 'Apply Online: Simple digital application.' },
@@ -113,6 +124,7 @@ onMounted(() => {
     const stepperLabels = list2Ref.value!.querySelectorAll('.stepper-label')
 
     // Set inicial: elementos del slide 2 invisibles
+    gsap.set(bgBuildings2Ref.value, { opacity: 0 })
     gsap.set(title2Words, { opacity: 0, y: 40 })
     gsap.set(serviceNumbers, { opacity: 0, scale: 0.5 })
     gsap.set(stepperLines, { opacity: 0, scaleY: 0, transformOrigin: 'top center' })
@@ -125,7 +137,7 @@ onMounted(() => {
       scrollTrigger: {
         trigger: containerRef.value,
         start: 'top top',
-        end: '+=300%', // Aumentado de 200% a 300% para más scroll
+        end: '+=500%',
         scrub: 1.5, // Aumentado de 1 a 1.5 para más suavidad
         pin: pinnedRef.value,
         anticipatePin: 1,
@@ -181,44 +193,47 @@ onMounted(() => {
     // Cambio de background (más lento)
     tl.to(pinnedRef.value, {
       background: 'var(--color-primary)',
-      duration: 0.8 // Aumentado de 0.4 a 0.8
+      duration: 0.8
     }, '<0.3')
 
-    // SECCIÓN 2: Stagger IN palabras del slide 2
+    tl.to(bgBuildings2Ref.value, { opacity: 1, duration: 0.6 }, '<0.2')
+
+    // SECCIÓN 2: título primero
     tl.to(title2Words, {
       opacity: 1,
       y: 0,
-      duration: 0.8, // Aumentado de 0.3 a 0.8
-      stagger: 0.05, // Aumentado de 0.02 a 0.05
+      duration: 0.8,
+      stagger: 0.05,
       ease: 'power2.out'
     }, '-=0.3')
 
-    // Animar cada step por separado con pausa entre ellos
-    const stepPause = 0.6
+    // Pausa para leer el título
+    tl.to({}, { duration: 1 })
+
+    // Steps uno por uno con pausa entre ellos
+    const stepPause = 0.8
     const circles = Array.from(serviceNumbers)
     const lines = Array.from(stepperLines)
     const labels = Array.from(stepperLabels)
     const allStepTexts = list2Ref.value!.querySelectorAll('.stepper-text')
 
     circles.forEach((circle, i) => {
-      // Círculo
-      tl.to(circle, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }, i === 0 ? '<0.1' : `+=${stepPause}`)
-      // Label
+      tl.to(circle, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }, i === 0 ? '>' : `+=${stepPause}`)
       tl.to(labels[i], { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }, '<0.1')
-      // Palabras del texto del step
       const words = Array.from((allStepTexts[i] as HTMLElement).querySelectorAll('.word-inner'))
       tl.to(words, { opacity: 1, y: 0, duration: 0.4, stagger: 0.03, ease: 'power2.out' }, '<0.1')
-      // Línea hacia el siguiente (si existe)
       if (lines[i]) {
         tl.to(lines[i], { opacity: 1, scaleY: 1, duration: 0.4, ease: 'power2.out' }, '<0.2')
       }
     })
 
-    tl.to(cta2Ref.value, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5
-    }, '<0.3')
+    // Pausa antes del botón
+    tl.to({}, { duration: 0.8 })
+
+    tl.to(cta2Ref.value, { opacity: 1, y: 0, duration: 0.5 })
+
+    // Pausa larga después del botón antes de salir
+    tl.to({}, { duration: 2 })
   })
 })
 
@@ -230,7 +245,7 @@ onUnmounted(() => {
 <style scoped>
 .pinned-container {
   width: 100vw;
-  height: 400vh; /* Altura total para el scroll - aumentado para más tiempo */
+  height: 600vh;
   position: relative;
 }
 
@@ -411,8 +426,5 @@ onUnmounted(() => {
 .bg-b {
   position: absolute;
   width: auto;
-  /* Recolor to a navy slightly lighter than #003f62 background → watermark effect */
-  filter: brightness(0) saturate(100%) invert(18%) sepia(60%) saturate(400%) hue-rotate(185deg) brightness(90%);
-  opacity: 0.5;
 }
 </style>

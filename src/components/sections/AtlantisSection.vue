@@ -8,6 +8,9 @@
     <img :src="nubeSvg" alt="" class="cloud atl-cloud-2" />
     <img :src="nubeSvg" alt="" class="cloud atl-cloud-3" />
 
+    <!-- Airplane -->
+    <img :src="avionSvg" alt="" class="airplane" />
+
     <!-- Atlantis building -->
     <img :src="atlantisSvg" alt="Atlantis" class="atlantis" />
   </section>
@@ -19,6 +22,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import atlantisSvg from '@/assets/atlantis.svg'
 import nubeSvg from '@/assets/images/nube.svg'
+import avionSvg from '@/assets/avion.svg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -104,5 +108,21 @@ onMounted(() => {
 @keyframes drift {
   from { transform: translateX(0); }
   to   { transform: translateX(calc(100vw + 160px)); }
+}
+
+.airplane {
+  position: absolute;
+  top: 18%;
+  left: -180px;
+  height: 60px;
+  width: auto;
+  z-index: 3;
+  animation: fly 18s linear infinite;
+  animation-delay: -4s;
+}
+
+@keyframes fly {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(100vw + 180px)); }
 }
 </style>

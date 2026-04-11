@@ -86,7 +86,7 @@ onMounted(() => {
 .contact-input,
 .contact-textarea {
   width: 100%;
-  background: #d9d9d9;
+  background: var(--color-neutral-light);
   border: none;
   border-radius: 4px;
   padding: 0.75rem 1rem;
@@ -112,7 +112,7 @@ onMounted(() => {
 /* Right: white/light with building */
 .contact-right {
   width: 48%;
-  background: #ffffff;
+  background: var(--color-neutral-light);
   position: relative;
   display: flex;
   align-items: flex-end;
