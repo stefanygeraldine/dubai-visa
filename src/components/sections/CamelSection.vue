@@ -24,7 +24,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import camelloSvg from '@/assets/camello.svg'
 import datilSvg from '@/assets/datil-tree.svg'
-import avionSvg from '@/assets/avion.svg'
+
 
 gsap.registerPlugin(ScrollTrigger)
 

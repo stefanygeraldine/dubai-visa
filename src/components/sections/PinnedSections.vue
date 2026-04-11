@@ -58,8 +58,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import Btn3D from '@/components/Btn3D.vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import buildingRedSvg from '@/assets/building-red.svg'
-import buildingRed2Svg from '@/assets/building-red-2.svg'
 import blueDarkBuildingSvg from '@/assets/blue-dark-building.svg'
 import redBuildingSvg from '@/assets/red-building.svg'
 
