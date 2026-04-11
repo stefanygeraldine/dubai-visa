@@ -115,7 +115,7 @@ onMounted(() => {
       scrollTrigger: {
         trigger: sectionRef.value,
         start: 'top 80%',
-        toggleActions: 'play none none reverse'
+        toggleActions: 'play none none none'
       }
     }
   )
@@ -137,7 +137,7 @@ onMounted(() => {
           scrollTrigger: {
             trigger: sectionRef.value,
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none'
           }
         }
       )
